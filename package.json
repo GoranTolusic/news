@@ -1,25 +1,18 @@
 {
   "name": "expresstype",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple blog news API",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "ts-node index.ts",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-    "installApp": "rm -rf node_modules/ && rm -rf package-lock.json && npm i && npm run createDb && npm run migrate && npm run seed",
-    "createDb": "./node_modules/.bin/ts-node createDb.ts",
-    "migrate": "./node_modules/.bin/knex migrate:latest",
-    "seed": "./node_modules/.bin/knex seed:run",
-    "dockerInstall": "npm run createDb && npm run migrate && npm run seed",
-    "updateApp": "rm -rf node_modules/ && rm -rf package-lock.json && npm i && knex migrate:latest",
     "dockerize": " npm run dockerImage && npm run dockerRun ",
-    "dockerImage": "docker build -t sports --network=host .",
-    "dockerRun": "docker run --network=host sports",
-    "dockerDeploy": "docker-compose up -d && sleep 10 && npm run dockerInstall"
+    "dockerImage": "docker build -t news --network=host .",
+    "dockerRun": "docker run --network=host news"
   },
-  "author": "",
+  "author": "Goran Tolusic",
   "license": "ISC",
   "dependencies": {
     "@tsed/exceptions": "^7.13.2",
