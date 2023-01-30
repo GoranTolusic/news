@@ -1,7 +1,7 @@
 FROM node:latest
 
 # Create books directory
-WORKDIR /usr/src/sports
+WORKDIR /usr/src/news
 
 #copy package.json to workdir
 COPY package.json ./
@@ -11,9 +11,6 @@ RUN npm install
 
 #copy application files to workdir
 COPY . .
-
-# create DB, run migrations, seeders etc...
-#RUN npm run dockerInstall
 
 #expose application port
 EXPOSE 3000
