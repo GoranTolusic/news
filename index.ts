@@ -13,8 +13,6 @@ import { authRoutes } from './src/routes/auth';
 import { userMiddleware } from './src/middlewares/user'
 import { authMiddleware } from './src/middlewares/auth';
 
-
-
 //bootstrap the app
 const app: Express = express();
 app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }));
