@@ -3,7 +3,7 @@ import { In, Like, ObjectLiteral } from "typeorm";
 import { AppDataSource } from "../helpers/data-source";
 import { User } from "../entity/User";
 import CreateUser from "../validationTypes/CreateUser";
-import { BadRequest, Forbidden, InternalServerError, NotFound, Unauthorized } from "@tsed/exceptions";
+import { BadRequest, Forbidden } from "@tsed/exceptions";
 import HashService from "./HashService";
 import AuthService from "./AuthService";
 import { omit } from "lodash"
