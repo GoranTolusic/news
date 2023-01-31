@@ -14,7 +14,7 @@ class UserService {
   public userRepository
   constructor(private hashService: HashService,
     private authService: AuthService) {
-    this.userRepository = AppDataSource.getRepository(User)
+    this.userRepository = AppDataSource.getMongoRepository(User)
   }
 
   async create(inputs: CreateUser) {

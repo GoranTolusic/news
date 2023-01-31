@@ -1,6 +1,6 @@
-import { Entity, ObjectID, Column, ObjectIdColumn } from "typeorm"
+import { Entity, ObjectID, Column, ObjectIdColumn, Index } from "typeorm"
 
-@Entity('users')
+@Entity()
 export class User {
     @ObjectIdColumn()
     id: ObjectID
@@ -11,7 +11,11 @@ export class User {
     @Column()
     lastName: string
 
-    @Column({ unique: true })
+    @Column()
+    alias: string
+
+    @Column()
+    @Index({ unique: true })
     email: string;
 
     @Column({ select: false })
