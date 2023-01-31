@@ -58,7 +58,7 @@ class UserService {
     return user
   }
 
-  async filter(params: any): Promise<User[]> {
+  async filter(params: ObjectLiteral): Promise<User[]> {
     let { limit, age, role, keyword, page } = params
     limit = limit || 10
 

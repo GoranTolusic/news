@@ -1,5 +1,5 @@
 import { BadRequest, Forbidden } from '@tsed/exceptions';
-import { Router, Response, NextFunction } from 'express';
+import { Router, Response, NextFunction, Request } from 'express';
 import { validatorDto } from '../helpers/validatorDto';
 import CreateUser from '../validationTypes/CreateUser';
 import UpdateUser from '../validationTypes/UpdateUser';
@@ -13,7 +13,7 @@ export const userMiddleware = Router();
 userMiddleware.use(authenticateUser)
 
 //Specific route middlewares
-userMiddleware.post('/', async (req: any, res: Response, next: NextFunction) => {
+userMiddleware.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
         await validatorDto(CreateUser, req.body, CreateUser.pickedProps())
@@ -23,7 +23,7 @@ userMiddleware.post('/', async (req: any, res: Response, next: NextFunction) => 
     }
 });
 
-userMiddleware.get('/:id', async (req: any, res: Response, next: NextFunction) => {
+userMiddleware.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (isNaN(Number(req.params.id))) throw new BadRequest('Invalid URI id')
         next()
@@ -32,7 +32,7 @@ userMiddleware.get('/:id', async (req: any, res: Response, next: NextFunction) =
     }
 });
 
-userMiddleware.patch('/:id', async (req: any, res: Response, next: NextFunction) => {
+userMiddleware.patch('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (isNaN(Number(req.params.id))) throw new BadRequest('Invalid URI id')
         if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
@@ -43,7 +43,7 @@ userMiddleware.patch('/:id', async (req: any, res: Response, next: NextFunction)
     }
 });
 
-userMiddleware.delete('/:id', async (req: any, res: Response, next: NextFunction) => {
+userMiddleware.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (isNaN(Number(req.params.id))) throw new BadRequest('Invalid URI id')
         if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')

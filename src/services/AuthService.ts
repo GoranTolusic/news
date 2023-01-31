@@ -6,6 +6,7 @@ import HashService from "./HashService";
 import JWTService from "./JWTService";
 import { omit } from "lodash"
 import nodemailer from "nodemailer"
+import { ObjectLiteral } from "typeorm";
 
 @Service()
 class AuthService {
@@ -15,7 +16,7 @@ class AuthService {
     this.userRepository = AppDataSource.getRepository(User)
   }
 
-  async login(body: any): Promise<string> {
+  async login(body: ObjectLiteral): Promise<string> {
     //get user with Password
     let user = await this.getUserWithPasswordAndVerified({ email: body.email }, 'email')
     //check if password matches with hashed one
@@ -27,7 +28,7 @@ class AuthService {
     return result
   }
 
-  async getUserWithPasswordAndVerified(param: any, columnName: string) {
+  async getUserWithPasswordAndVerified(param: ObjectLiteral, columnName: string) {
     let user = this.userRepository.createQueryBuilder('users')
       .addSelect('users.password')
       .where(`users.${columnName} = :${columnName}`, param)
@@ -36,7 +37,7 @@ class AuthService {
     return user
   }
 
-  async verifyToken(params: any) {
+  async verifyToken(params: ObjectLiteral) {
     let user = await this.userRepository.findOneBy({
       verifyToken: params.verifyToken,
       id: params.userId,

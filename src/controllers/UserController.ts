@@ -15,11 +15,9 @@ class UserController {
         }
     }
 
-    public async getOne(req: any, res: Response) {
+    public async getOne(req: Request, res: Response) {
         try {
             let result = await this.userService.getOne(Number(req.params.id))
-
-            //assign users classes if you are permitted
             res.json(result)
         } catch (error) {
             res.status(500).json(error)
