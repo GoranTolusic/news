@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 @Service()
 class JWTService {
     generateToken(user: User) : string {
-      let token = jwt.sign(user, process.env.JWT_SECRET || '')
+      let token = jwt.sign(user, process.env.JWT_SECRET || '', { expiresIn: process.env.JWT_EXPIRES || '1h' })
       return token
     }
   

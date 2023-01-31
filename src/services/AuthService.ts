@@ -13,12 +13,15 @@ class AuthService {
   private userRepository
   constructor(private hashService: HashService,
     private jwtService: JWTService) {
-    this.userRepository = AppDataSource.getRepository(User)
+    this.userRepository = AppDataSource.getMongoRepository(User)
   }
 
   async login(body: ObjectLiteral): Promise<string> {
+    let user = await this.userRepository.findOneBy({
+      email: body.email
+    })
     //get user with Password
-    let user = await this.getUserWithPasswordAndVerified({ email: body.email }, 'email')
+    //let user = await this.getUserWithPasswordAndVerified({ email: body.email }, 'email')
     //check if password matches with hashed one
     let matches = await this.hashService.comparePasswords(body.password, user?.password || '')
     if (!matches) throw new Unauthorized('Incorrect password. Try Again!')
@@ -28,24 +31,18 @@ class AuthService {
     return result
   }
 
-  async getUserWithPasswordAndVerified(param: ObjectLiteral, columnName: string) {
-    let user = this.userRepository.createQueryBuilder('users')
-      .addSelect('users.password')
-      .where(`users.${columnName} = :${columnName}`, param)
-      .getOne()
-    if (!user) throw new NotFound('User with provided email not found')
-    return user
-  }
-
   async verifyToken(params: ObjectLiteral) {
     let user = await this.userRepository.findOneBy({
       verifyToken: params.verifyToken,
-      id: params.userId,
       verified: false
     })
     if (!user) throw new NotFound('Invalid verify Token')
     user.verified = true
-    await this.userRepository.save(user)
+    await this.userRepository.updateOne({ email: user.email }, {
+      $set: {
+        verified: true
+      }
+    })
     return true
   }
 
@@ -59,8 +56,8 @@ class AuthService {
       port: 587,
       secure: false,
       auth: {
-        user: testAccount.user, 
-        pass: testAccount.pass, 
+        user: testAccount.user,
+        pass: testAccount.pass,
       },
     });
 

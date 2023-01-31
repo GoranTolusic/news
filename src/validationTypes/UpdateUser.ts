@@ -14,6 +14,8 @@ class UpdateUser {
     @IsNotEmpty()
     lastName?: string
 
+    alias?: string
+
     @IsOptional()
     @IsEmail()
     @IsString()
@@ -23,7 +25,7 @@ class UpdateUser {
     readonly updatedAt: number = Date.now()
 
     static pickedProps(): string[] {
-        return ['firstName', 'lastName', 'email']
+        return ['firstName', 'lastName', 'email', 'alias']
     }
 }
 

@@ -18,6 +18,7 @@ class UserService {
   }
 
   async create(inputs: CreateUser) {
+    if (inputs.role == 'editor' && (!inputs.firstName || !inputs.lastName)) throw new BadRequest('firstName and lastName are required for editors')
     //check if user with same email exists
     let findIfExists = await this.userRepository.findOneBy({ email: inputs.email })
     if (findIfExists) throw new Forbidden('Email already exists')
