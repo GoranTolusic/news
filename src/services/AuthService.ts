@@ -20,12 +20,12 @@ class AuthService {
     let user = await this.userRepository.findOneBy({
       email: body.email
     })
-    //get user with Password
-    //let user = await this.getUserWithPasswordAndVerified({ email: body.email }, 'email')
+
     //check if password matches with hashed one
     let matches = await this.hashService.comparePasswords(body.password, user?.password || '')
     if (!matches) throw new Unauthorized('Incorrect password. Try Again!')
     if (!user?.verified) throw new Forbidden('You are not verified yet, please verify your email')
+    
     //return accessToken 
     let result = this.jwtService.generateToken(omit(user, ['password']))
     return result
@@ -67,7 +67,7 @@ class AuthService {
       to: `${created.email}`,
       subject: "Verify your email", // Subject line
       text: "Hello world?", // plain text body
-      html: `<b><a href="http://localhost:3000/auth/verifyEmail?verifyToken=${created.verifyToken}&userId=${created.id}">Click to Verify</a></b>`, // html body
+      html: `<b><a href="http://localhost:3000/auth/verifyEmail?verifyToken=${created.verifyToken}&userId=${created._id}">Click to Verify</a></b>`, // html body
     });
 
     console.log("Message sent: %s", info.messageId);

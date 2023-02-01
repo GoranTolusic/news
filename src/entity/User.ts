@@ -1,9 +1,10 @@
-import { Entity, ObjectID, Column, ObjectIdColumn, Index } from "typeorm"
+import { Entity, Column, ObjectIdColumn, Index } from "typeorm"
+import { ObjectId } from "bson"
 
 @Entity()
 export class User {
     @ObjectIdColumn()
-    id: ObjectID
+    _id: ObjectId
 
     @Column()
     firstName: string
