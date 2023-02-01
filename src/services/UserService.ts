@@ -20,7 +20,7 @@ class UserService {
     if (inputs.role == 'editor' && (!inputs.firstName || !inputs.lastName)) throw new BadRequest('firstName and lastName are required for editors')
     
     //check if user with same email exists
-    let findIfExists = await this.get({ email: inputs.email })
+    let findIfExists = await this.userRepository.findOneBy({ email: inputs.email })
     if (findIfExists) throw new Forbidden('Email already exists')
 
     //hash password
@@ -29,7 +29,7 @@ class UserService {
     //insert user
     let created = await this.userRepository.save(inputs)
 
-    //send email for verifying
+    //send email for verifying (check the console for generated link to verify account :P)
     await this.authService.sendMail(created).catch(console.error);
 
     //return user without password and verifyToken information because of security issues

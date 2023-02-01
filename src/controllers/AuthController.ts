@@ -13,11 +13,11 @@ class AuthController {
     }
 
     public async login(req: Request, res: Response) {
-        return await this.authService.login(req.body)
+        return { accessToken: await this.authService.login(req.body) }
     }
 
     public async verifyToken(req: Request, res: Response) {
-       return await this.authService.verifyToken(req.query)
+        return await this.authService.verifyToken(req.query)
     }
 }
 
