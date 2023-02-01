@@ -9,12 +9,7 @@ class AuthController {
         private readonly authService: AuthService) { }
 
     public async register(req: Request, res: Response) {
-        try {
-            let result = await this.userService.create(req.body._validated)
-            res.json(result)
-        } catch (error) {
-            res.status(500).json(error)
-        }
+            return await this.userService.create(req.body._validated)
     }
 
     public async login(req: Request, res: Response) {
