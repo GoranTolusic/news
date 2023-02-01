@@ -7,7 +7,7 @@ WORKDIR /usr/src/news
 COPY package.json ./
 
 #install dependencies
-RUN npm install
+RUN npm install --force
 
 #copy application files to workdir
 COPY . .
