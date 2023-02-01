@@ -9,25 +9,15 @@ class AuthController {
         private readonly authService: AuthService) { }
 
     public async register(req: Request, res: Response) {
-            return await this.userService.create(req.body._validated)
+        return await this.userService.create(req.body._validated)
     }
 
     public async login(req: Request, res: Response) {
-        try {
-            let result = await this.authService.login(req.body)
-            res.json({ accessToken: result })
-        } catch (error) {
-            res.status(500).json(error)
-        }
+        return await this.authService.login(req.body)
     }
 
     public async verifyToken(req: Request, res: Response) {
-        try {
-            await this.authService.verifyToken(req.query)
-            res.json({ message: 'verified successfully' })
-        } catch (error) {
-            res.status(500).json(error)
-        }
+       return await this.authService.verifyToken(req.query)
     }
 }
 

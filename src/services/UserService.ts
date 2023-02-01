@@ -3,11 +3,10 @@ import { In, Like, ObjectLiteral } from "typeorm";
 import { AppDataSource } from "../helpers/data-source";
 import { User } from "../entity/User";
 import CreateUser from "../validationTypes/CreateUser";
-import { BadRequest, Forbidden } from "@tsed/exceptions";
+import { BadRequest, Forbidden, NotFound } from "@tsed/exceptions";
 import HashService from "./HashService";
 import AuthService from "./AuthService";
 import { omit } from "lodash"
-import UpdateUser from "../validationTypes/UpdateUser";
 
 @Service()
 class UserService {
@@ -19,8 +18,9 @@ class UserService {
 
   async create(inputs: CreateUser) {
     if (inputs.role == 'editor' && (!inputs.firstName || !inputs.lastName)) throw new BadRequest('firstName and lastName are required for editors')
+    
     //check if user with same email exists
-    let findIfExists = await this.userRepository.findOneBy({ email: inputs.email })
+    let findIfExists = await this.get({ email: inputs.email })
     if (findIfExists) throw new Forbidden('Email already exists')
 
     //hash password
@@ -36,57 +36,10 @@ class UserService {
     return omit(created, ['password', 'verifyToken'])
   }
 
-  async update(id: number, params: UpdateUser) {
-    //Fetch user
-    /* let user = await this.getOne(id)
-
-    //check unique email
-    if (params.email && user.email !== params.email) {
-      let findIfExists = await this.userRepository.findOneBy({ email: params.email })
-      if (findIfExists) throw new Forbidden('Email already exists')
-    }
-
-    //Assign new values to existing user
-    Object.assign(user, params)
-    return await this.userRepository.save(user) */
-    return true
-  }
-
-  async delete(id: number) {
-    //Fetch user
-    let user = await this.getOne(id)
-    await this.userRepository.delete(id)
-    return user
-  }
-
-  async filter(params: ObjectLiteral): Promise<User[]> {
-    let { limit, age, role, keyword, page } = params
-    limit = limit || 10
-
-    //Formating where clause with filter options
-    let whereClause: ObjectLiteral = {}
-    if (role?.length) whereClause.role = In(role)
-    if (age?.length) whereClause.age = In(age)
-    if (keyword && keyword.length > 3) {
-      whereClause = [
-        { ...whereClause, "firstName": Like(`%${keyword}%`) },
-        { ...whereClause, "lastName": Like(`%${keyword}%`) }
-      ]
-    }
-
-    return await this.userRepository.find({
-      order: { createdAt: 'DESC' },
-      take: limit,
-      skip: page ? (page - 1) * limit : 0,
-      where: whereClause
-    })
-  }
-
-  async getOne(id: number) {
-    /* let user = await this.userRepository.findOneBy({ id: id })
+  async get(param: ObjectLiteral) {
+    let user = await this.userRepository.findOneBy(param)
     if (!user) throw new NotFound('User Not Found')
-    return user */
-    return true
+    return user
   }
 }
 
