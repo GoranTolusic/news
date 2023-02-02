@@ -10,37 +10,37 @@ import { omit } from "lodash"
 
 @Service()
 class UserService {
-  public userRepository
-  constructor(private hashService: HashService,
-    private authService: AuthService) {
-    this.userRepository = AppDataSource.getMongoRepository(User)
-  }
+	public userRepository
+	constructor(private hashService: HashService,
+		private authService: AuthService) {
+		this.userRepository = AppDataSource.getMongoRepository(User)
+	}
 
-  async create(inputs: CreateUser) {
-    if (inputs.role == 'editor' && (!inputs.firstName || !inputs.lastName)) throw new BadRequest('firstName and lastName are required for editors')
-    
-    //check if user with same email exists
-    let findIfExists = await this.userRepository.findOneBy({ email: inputs.email })
-    if (findIfExists) throw new Forbidden('Email already exists')
+	async create(inputs: CreateUser) {
+		if (inputs.role == 'editor' && (!inputs.firstName || !inputs.lastName)) throw new BadRequest('firstName and lastName are required for editors')
 
-    //hash password
-    inputs.password = await this.hashService.hash(inputs.password)
+		//check if user with same email exists
+		let findIfExists = await this.userRepository.findOneBy({ email: inputs.email })
+		if (findIfExists) throw new Forbidden('Email already exists')
 
-    //insert user
-    let created = await this.userRepository.save(inputs)
+		//hash password
+		inputs.password = await this.hashService.hash(inputs.password)
 
-    //send email for verifying (check the console for generated link to verify account :P)
-    await this.authService.sendMail(created).catch(console.error);
+		//insert user
+		let created = await this.userRepository.save(inputs)
 
-    //return user without password and verifyToken information because of security issues
-    return omit(created, ['password', 'verifyToken'])
-  }
+		//send email for verifying (check the console for generated link to verify account :P)
+		await this.authService.sendMail(created).catch(console.error);
 
-  async get(param: ObjectLiteral) {
-    let user = await this.userRepository.findOneBy(param)
-    if (!user) throw new NotFound('User Not Found')
-    return user
-  }
+		//return user without password and verifyToken information because of security issues
+		return omit(created, ['password', 'verifyToken'])
+	}
+
+	async get(param: ObjectLiteral) {
+		let user = await this.userRepository.findOneBy(param)
+		if (!user) throw new NotFound('User Not Found')
+		return user
+	}
 }
 
 export default UserService;

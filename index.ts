@@ -23,11 +23,11 @@ app.use('/auth', authRoutes);
 
 //handling unknown routes
 app.all('*', function (req, res) {
-  res.status(404).send({
-    message: 'Unknown route'
-  });
+    res.status(404).send({
+        message: 'Unknown route'
+    });
 })
 
 app.listen(process.env.PORT, () => {
-  console.log(`We are live! Server is running at http://localhost:${process.env.PORT}`);
+    console.log(`We are live! Server is running at http://localhost:${process.env.PORT}`);
 });

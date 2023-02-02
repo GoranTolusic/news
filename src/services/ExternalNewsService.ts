@@ -1,26 +1,32 @@
 import { Service } from "typedi";
 import NewsAPI from "ts-newsapi";
-import { News } from "../../types/News";
+import { ExternalNewsQuery } from "../../types/ExternalNewsQuery";
+import { ExternalNews } from "../entity/ExternalNews";
+import { INewsApiArticle } from "ts-newsapi";
+import { omit } from "lodash";
+import { AppDataSource } from "../helpers/data-source";
 
 @Service()
 class ExternalNewsService {
     public newsApi
+    public externalNewsRepository
     private default
     private apiKey
     private params
 
-    constructor(params: News) {
+    constructor(params: ExternalNewsQuery) {
         this.params = params
         this.apiKey = process.env.NEWS_APIKEY
         this.newsApi = new NewsAPI(this.apiKey || '')
-        this.default = process.env.NEWS_TYPE_FOR_SEED
+        this.default = process.env.NEWS_TYPE_FOR_SEED,
+        this.externalNewsRepository = AppDataSource.getMongoRepository(ExternalNews)
     }
 
-    async getTopHeadlines(params: News) {
+    async getTopHeadlines(params: ExternalNewsQuery) {
         return await this.newsApi.getTopHeadlines(params)
     }
 
-    async getEverything(params: News) {
+    async getEverything(params: ExternalNewsQuery) {
         return await this.newsApi.getEverything(params)
     }
 
@@ -39,20 +45,25 @@ class ExternalNewsService {
         }
         if (fetchedData?.status !== 'ok') throw new Error ('Something went wrong, please check you param configuration and try again')
         let mappedData = this.mapData(fetchedData.articles)
-        await this.insertFetchedData(mappedData)
-        console.log("\x1b[32m", 'DONE!', '\x1b[0m')
+        return await this.insertFetchedData(mappedData)
     }
 
-    mapData(results: any[]) {
-        //TODO kreirati schemu za news u entitetima i izmapirati datu
+    mapData(results: INewsApiArticle[]) {
         console.log("\x1b[32m", 'Formating data ...', '\x1b[0m')
-        return results
+        return results.map(function(item) {
+            return {
+                ...omit(item, ['source']),
+                createdAt: Date.now(),
+                source: item.source?.name || null
+            }
+        })
     }
 
-    async insertFetchedData(mappedData: any) {
-        //TODO pozvati news repo i insertati
+    async insertFetchedData(mappedData: any[]) {
         console.log("\x1b[32m", 'Inserting data ...', '\x1b[0m')
-        mappedData
+        await this.externalNewsRepository.insertMany(mappedData)
+        console.log("\x1b[32m", 'DONE!', '\x1b[0m')
+        return true
     }
 
     ping() {
