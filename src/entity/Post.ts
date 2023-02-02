@@ -11,33 +11,35 @@ export class Post {
     viewCount: number
 
     @Column({ default: false })
+    @Index()
     breakingNews: boolean
-
-    @Column()
-    title: string
-
-    @Column()
-    shortDescription: string
-
-    @Column()
-    description: string
 
     @Column()
     category: string
 
     @Column()
-    urlToImage: string | null
-    
-    @Column()
-    content: string | null
+    title: string
 
+    @Column()
+    description: string
+
+    @Column()
+    urlToImage: string
+
+    @Column()
+    url: string
+    
     @Column()
     createdAt: number
 
     @Column()
     updatedAt: number
 
-    @Column((type) => User)
-    user: User
+    //@Column((type) => User)
+    //user: User
+
+    @Column()
+    @Index()
+    idUser: string
 
 }

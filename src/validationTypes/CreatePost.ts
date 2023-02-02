@@ -10,7 +10,7 @@ export class CreatePost {
 
     @IsBoolean()
     @IsOptional()
-    breakingNews: boolean
+    breakingNews: boolean = false
 
     @IsOptional()
     @IsIn(['worldwide', 'local', 'sport', 'business'])
@@ -18,8 +18,11 @@ export class CreatePost {
 
     readonly createdAt: number = Date.now()
 
+    readonly viewCount: number = 0
+
     readonly updatedAt: number = Date.now()
 
+    //These input properties will get extracted from input params.
     static pickedProps(): string[] {
         return ['externalNewsId', 'breakingNews', 'category']
     }

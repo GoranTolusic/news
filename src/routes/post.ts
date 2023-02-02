@@ -8,4 +8,5 @@ const postController = Container.get(PostController)
 
 //prefix = post/
 postRoutes.post('/create', routeHandler((req: Request, res: Response) => postController.create(req, res)));
+postRoutes.get('/:id', routeHandler((req: Request, res: Response) => postController.get(req, res)));
 

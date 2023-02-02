@@ -1,13 +1,11 @@
 import { Service } from "typedi";
-import { ObjectLiteral } from "typeorm";
 import { AppDataSource } from "../helpers/data-source";
-import { User } from "../entity/User";
-import { BadRequest, Forbidden, NotFound } from "@tsed/exceptions";
-import { omit } from "lodash"
+import { NotFound } from "@tsed/exceptions";
 import { Post } from "../entity/Post";
 import { ObjectId } from "bson"
 import { CreatePost } from "../validationTypes/CreatePost";
 import { ExternalNews } from "../entity/ExternalNews";
+import { omit, pick } from "lodash";
 
 @Service()
 class PostService {
@@ -19,17 +17,19 @@ class PostService {
 	}
 
 	async create(inputs: CreatePost) {
-		let findExternal = await this.externalRepository.findOneBy({_id: this.checkAndGetId(inputs.externalNewsId)})
+		let findExternal = await this.externalRepository.findOneBy({ _id: this.checkAndGetId(inputs.externalNewsId) })
 		if (!findExternal) throw new NotFound('External news with provided Id was not found')
-		let readyForInsert = this.formatNewsObject(findExternal, inputs)
-		
-		return true
+		let formatedModel = this.formatNewsObject(findExternal, inputs)
+		if (formatedModel.breakingNews) await this.unsetBreakingNews()
+		return await this.postRepository.save(formatedModel)
 	}
 
 	async get(id: string) {
-		let user = await this.postRepository.findOneBy({ _id: this.checkAndGetId(id) })
-		if (!user) throw new NotFound('Post Not Found')
-		return user
+		let post = await this.postRepository.findOneBy({ _id: this.checkAndGetId(id) })
+		if (!post) throw new NotFound('Not Found')
+		let increaseCount = post.viewCount + 1
+		await this.postRepository.updateOne({ _id: this.checkAndGetId(String(post._id)) }, { $set: { viewCount: increaseCount } })
+		return post
 	}
 
 	checkAndGetId(id: string) {
@@ -37,13 +37,24 @@ class PostService {
 		try {
 			objectId = new ObjectId(id)
 		} catch (e) {
+
 			throw new NotFound('Invalid document id. Resource not found')
 		}
 		return objectId
 	}
 
 	formatNewsObject(externalNews: ExternalNews, inputs: CreatePost) {
-		//TODO logika za napraviti post objekt
+		return {
+			...omit(inputs, ['externalNewsId']),
+			...pick(externalNews, ['title', 'description', 'urlToImage', 'url'])
+		}
+	}
+
+	async unsetBreakingNews() {
+		await this.postRepository.updateMany(
+			{ breakingNews: true },
+			{ $set: { breakingNews: false } }
+		)
 	}
 
 }

@@ -13,16 +13,16 @@ export class ExternalNews {
     author: string | null
 
     @Column()
-    title: string | null
+    title: string
 
     @Column()
-    description: string | null
+    description: string
 
     @Column()
-    url: string | null
+    url: string
 
     @Column()
-    urlToImage : string | null
+    urlToImage : string
 
     @Column('date')
     publishedAt: Date | null
