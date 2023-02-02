@@ -23,6 +23,9 @@ export class Post {
     description: string
 
     @Column()
+    category: string
+
+    @Column()
     urlToImage: string | null
     
     @Column()

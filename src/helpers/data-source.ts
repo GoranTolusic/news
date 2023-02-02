@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { ExternalNews } from "../entity/ExternalNews"
 import { User } from "../entity/User"
 import dotenv from 'dotenv';
+import { Post } from "../entity/Post";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [User, ExternalNews],
+    entities: [User, ExternalNews, Post],
     migrations: [],
     subscribers: [],
 })

@@ -1,5 +1,5 @@
 import { Entity } from "typeorm"
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 @Entity()
 export class CreatePost {
@@ -12,11 +12,15 @@ export class CreatePost {
     @IsOptional()
     breakingNews: boolean
 
+    @IsOptional()
+    @IsIn(['worldwide', 'local', 'sport', 'business'])
+    category: string
+
     readonly createdAt: number = Date.now()
 
     readonly updatedAt: number = Date.now()
 
     static pickedProps(): string[] {
-        return ['externalNewsId', 'breakingNews']
+        return ['externalNewsId', 'breakingNews', 'category']
     }
 }

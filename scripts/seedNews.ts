@@ -4,6 +4,7 @@ import ExternalNewsService from "../src/services/ExternalNewsService";
 import { exit } from 'process';
 dotenv.config();
 
+console.log('PREPARING FOR SEED NEWS')
 //Some query params for searching news data
 const querySearch: ExternalNewsQuery = {
     pageSize: 20,
@@ -12,12 +13,13 @@ const querySearch: ExternalNewsQuery = {
 }
 
 //Fetch news data, map it and insert into local database
-async function seedNewsData(params: ExternalNewsQuery) {
+async function runSeedProcess(params: ExternalNewsQuery) {
     let service = new ExternalNewsService(params)
     let pong = service.ping()
     if (!pong) exit()
-    await service.seedDefault()
+    let inserted = await service.seedDefault()
+    if (inserted) exit()
 }
 
 //Start the process
-seedNewsData(querySearch)
+runSeedProcess(querySearch)

@@ -7,8 +7,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx tsc",
         "start": "ts-node index.ts",
-        "installAndRun": "rm -rf node_modules/ && rm -rf package-lock.json && npm i && npm run seed && npm run start",
-        "seed": "ts-node ./scripts/seedNews.ts",
+        "installAndRun": "rm -rf node_modules/ && rm -rf package-lock.json && npm i && npm run seedAdmins && npm run seedNews && npm run start",
+        "seedNews": "ts-node ./scripts/seedNews.ts",
+        "seedAdmins": "ts-node ./scripts/seedAdmins.ts",
         "dockerize": " npm run dockerImage && npm run dockerRun ",
         "dockerImage": "docker build -t news .",
         "dockerRun": "docker run news"
