@@ -4,7 +4,7 @@ import { ObjectId } from "bson"
 @Entity()
 export class ExternalNews {
     @ObjectIdColumn()
-    _id?: ObjectId
+    _id: ObjectId
 
     @Column()
     source: string | null
@@ -30,7 +30,6 @@ export class ExternalNews {
     @Column()
     content: string | null
 
-    static pickedProps(): string[] {
-        return ['source', 'author', 'title', 'description', 'url', 'urlToimage', 'publishedAt', 'content']
-    }
+    @Column()
+    createdAt: number
 }

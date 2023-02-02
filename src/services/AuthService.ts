@@ -61,14 +61,14 @@ class AuthService {
                 pass: testAccount.pass,
             },
         });
-
+        
         // send mail with defined transport object
         let info = await transporter.sendMail({
             from: '"Sport Classes " <sports.company@example.com>',
             to: `${created.email}`,
             subject: "Verify your email", // Subject line
             text: "Hello world?", // plain text body
-            html: `<b><a href="http://localhost:3000/auth/verifyEmail?verifyToken=${created.verifyToken}&userId=${created._id}">Click to Verify</a></b>`, // html body
+            html: `<b><a href="http://${process.env.HOST}:${process.env.PORT}/auth/verifyEmail?verifyToken=${created.verifyToken}&userId=${created._id}">Click to Verify</a></b>`, // html body
         });
 
         console.log("Message sent: %s", info.messageId);
