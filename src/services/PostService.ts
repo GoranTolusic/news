@@ -32,12 +32,16 @@ class PostService {
 		return post
 	}
 
+	async delete(id: string) {
+		await this.postRepository.deleteOne({ _id: this.checkAndGetId(id) })
+		return { message: 'deleted' }
+	}
+
 	checkAndGetId(id: string) {
 		let objectId
 		try {
 			objectId = new ObjectId(id)
 		} catch (e) {
-
 			throw new NotFound('Invalid document id. Resource not found')
 		}
 		return objectId

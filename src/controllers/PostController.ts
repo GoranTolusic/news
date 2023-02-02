@@ -19,6 +19,10 @@ class PostController {
         let result = await this.postService.get(req.params.id)
         return req.loggedUser.role == 'guest' ? omit(result, ['viewCount']) : result
     }
+
+    public async delete(req: Request, res: Response) {
+        return await this.postService.delete(req.params.id)
+    }
 }
 
 export default PostController

@@ -17,3 +17,7 @@ postMiddleware.post('/create', middlewareHandler(async (req: Request, res: Respo
     await validatorDto(CreatePost, req.body, CreatePost.pickedProps())
     if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
 }));
+
+postMiddleware.delete('/:id', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
+    if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
+}));
