@@ -40,6 +40,6 @@ export class Post {
 
     @Column()
     @Index()
-    idUser: string
+    _userId: string
 
 }
