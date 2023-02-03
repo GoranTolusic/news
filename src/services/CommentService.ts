@@ -18,8 +18,7 @@ class CommentService {
 	async create(inputs: CreateComment) {
 		let findExternal = await this.postRepository.findOneBy({ _id: this.checkAndGetId(inputs._postId) })
 		if (!findExternal) throw new NotFound('External news with provided Id was not found')
-
-		return
+		return await this.commentRepository.save(inputs)
 	}
 
 	async delete(id: string) {
@@ -31,7 +30,7 @@ class CommentService {
 		let { page, limit, order, _postId } = inputs
 		limit = limit || 20
 
-		let results = await this.postRepository.find({
+		let results = await this.commentRepository.find({
 			where : {
 				_postId: _postId
 			},

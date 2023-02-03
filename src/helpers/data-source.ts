@@ -4,6 +4,7 @@ import { ExternalNews } from "../entity/ExternalNews"
 import { User } from "../entity/User"
 import dotenv from 'dotenv';
 import { Post } from "../entity/Post";
+import { Comment } from "../entity/Comment";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [User, ExternalNews, Post],
+    entities: [User, ExternalNews, Post, Comment],
     migrations: [],
     subscribers: [],
 })

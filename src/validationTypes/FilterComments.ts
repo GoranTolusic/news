@@ -24,6 +24,6 @@ export class FilterComments {
 
     //These input properties will get extracted from input params.
     static pickedProps(): string[] {
-        return ['page', 'limit', 'order']
+        return ['page', 'limit', 'order', '_postId']
     }
 }

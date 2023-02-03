@@ -13,6 +13,7 @@ import { commentRoutes } from './src/routes/comments';
 //import middlewares
 import { authMiddleware } from './src/middlewares/auth';
 import { postMiddleware } from './src/middlewares/post';
+import { commentMiddleware } from './src/middlewares/comment';
 
 //bootstrap the app
 const app: Express = express();
@@ -21,6 +22,7 @@ app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }));
 //middleware registry
 app.use('/auth', authMiddleware);
 app.use('/post', postMiddleware);
+app.use('/comment', commentMiddleware);
 
 //Route registry
 app.use('/auth', authRoutes);

@@ -67,6 +67,11 @@ class PostService {
 			skip: page ? (page - 1) * limit : 0
 
 		})
+
+		for (let oneResult of results) {
+			if (oneResult.breakingNews) oneResult = await this.validateBreakingNews(oneResult)
+		}
+		
 		return results
 	}
 

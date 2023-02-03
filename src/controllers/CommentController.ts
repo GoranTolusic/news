@@ -8,6 +8,7 @@ class CommentController {
 
     public async create(req: Request, res: Response) {
         req.body._validated._userId = req.loggedUser._id
+        req.body._validated._userAlias = req.loggedUser.alias
         return await this.commentService.create(req.body._validated)
     }
 
