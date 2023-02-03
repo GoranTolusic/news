@@ -11,7 +11,7 @@ export const postMiddleware = Router();
 
 //prefix = post/
 
-//global middleware for all class/ routes
+//global middleware for all post/ routes
 postMiddleware.use(authenticateUser)
 
 //Specificic endpoints middlewares

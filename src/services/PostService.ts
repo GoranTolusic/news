@@ -7,7 +7,6 @@ import { CreatePost } from "../validationTypes/CreatePost";
 import { ExternalNews } from "../entity/ExternalNews";
 import { omit, pick } from "lodash";
 import { UpdatePost } from "../validationTypes/UpdatePost";
-import { ObjectLiteral } from "typeorm";
 
 @Service()
 class PostService {

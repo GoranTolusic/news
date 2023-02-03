@@ -8,6 +8,7 @@ import "reflect-metadata"
 //import routes
 import { authRoutes } from './src/routes/auth';
 import { postRoutes } from './src/routes/post';
+import { commentRoutes } from './src/routes/comments';
 
 //import middlewares
 import { authMiddleware } from './src/middlewares/auth';
@@ -24,6 +25,7 @@ app.use('/post', postMiddleware);
 //Route registry
 app.use('/auth', authRoutes);
 app.use('/post', postRoutes);
+app.use('/comment', commentRoutes);
 
 //handling unknown routes
 app.all('*', function (req, res) {

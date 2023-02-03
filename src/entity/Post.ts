@@ -42,8 +42,4 @@ export class Post {
     @Column()
     @Index()
     _userId: string
-
-    @Column()
-    idodusera: string
-
 }
