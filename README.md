@@ -1,7 +1,5 @@
 # news
 
--RUN WITHOUT DOCKER-
-
 SETUP news project (Make sure that Node.js (version >= 12, except for v13) is installed on your operating system and npm)
 
 Requirments: 
