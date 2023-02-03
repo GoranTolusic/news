@@ -15,6 +15,7 @@ export class Post {
     breakingNews: boolean
 
     @Column()
+    @Index()
     category: string
 
     @Column()
@@ -41,5 +42,8 @@ export class Post {
     @Column()
     @Index()
     _userId: string
+
+    @Column()
+    idodusera: string
 
 }

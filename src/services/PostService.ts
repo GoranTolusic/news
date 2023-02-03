@@ -7,14 +7,17 @@ import { CreatePost } from "../validationTypes/CreatePost";
 import { ExternalNews } from "../entity/ExternalNews";
 import { omit, pick } from "lodash";
 import { UpdatePost } from "../validationTypes/UpdatePost";
+import { ObjectLiteral } from "typeorm";
 
 @Service()
 class PostService {
 	public postRepository
 	public externalRepository
+	public myDataSource
 	constructor() {
 		this.postRepository = AppDataSource.getMongoRepository(Post)
 		this.externalRepository = AppDataSource.getMongoRepository(ExternalNews)
+		this.myDataSource = AppDataSource
 	}
 
 	async create(inputs: CreatePost) {
@@ -46,6 +49,26 @@ class PostService {
 	async delete(id: string) {
 		await this.postRepository.deleteOne({ _id: this.checkAndGetId(id) })
 		return { message: 'deleted' }
+	}
+
+	async filter(inputs: any) {
+		let { page, limit, category, breakingNews, order } = inputs
+		limit = limit || 20
+		const where: Record<string, any> = {}
+
+		if (inputs.hasOwnProperty('breakingNews')) where.breakingNews = breakingNews
+		if (category) where.category = { $in: category }
+
+		let results = await this.postRepository.find({
+			where,
+			order: {
+				createdAt: order || 'DESC'
+			},
+			take: limit,
+			skip: page ? (page - 1) * limit : 0
+
+		})
+		return results
 	}
 
 	checkAndGetId(id: string) {
@@ -80,7 +103,7 @@ class PostService {
 			if (timestampDifference >= breakingNewsInterval) {
 				post.breakingNews = false
 				if (unset) await this.unsetBreakingNews()
-			} 
+			}
 		}
 		return post
 	}

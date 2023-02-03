@@ -11,4 +11,5 @@ postRoutes.post('/create', routeHandler((req: Request, res: Response) => postCon
 postRoutes.patch('/:id', routeHandler((req: Request, res: Response) => postController.update(req, res)));
 postRoutes.get('/:id', routeHandler((req: Request, res: Response) => postController.get(req, res)));
 postRoutes.delete('/:id', routeHandler((req: Request, res: Response) => postController.delete(req, res)));
+postRoutes.post('/filter', routeHandler((req: Request, res: Response) => postController.filter(req, res)));
 

@@ -5,6 +5,7 @@ import { middlewareHandler } from '../helpers/middlewareHandler';
 import { authenticateUser } from '../helpers/authenticateUser';
 import { Forbidden } from '@tsed/exceptions';
 import { UpdatePost } from '../validationTypes/UpdatePost';
+import { FilterPosts } from '../validationTypes/FilterPosts';
 
 export const postMiddleware = Router();
 
@@ -17,6 +18,10 @@ postMiddleware.use(authenticateUser)
 postMiddleware.post('/create', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
     await validatorDto(CreatePost, req.body, CreatePost.pickedProps())
     if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
+}));
+
+postMiddleware.post('/filter', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
+    await validatorDto(FilterPosts, req.body, FilterPosts.pickedProps())
 }));
 
 postMiddleware.patch('/:id', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
