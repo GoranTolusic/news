@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "1d3fa11a-f38a-43c9-99b4-a53d24e6c30b",
+		"name": "News",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\" :\"test1234\", \r\n    \"email\" : \"admin@mail.com\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\" : \"goran\",\r\n    \"lastName\": \"tolusic\",\r\n    \"email\": \"testing@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"alias\": \"Goran T.\",\r\n    \"role\": \"editor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTWFpbiIsImxhc3ROYW1lIjoiQWRtaW4iLCJhY3RpdmUiOnRydWUsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOjE2NzI5Mjg3NDkwNTgsInVwZGF0ZWRBdCI6MTY3MjkyODc0OTA1OCwiaWF0IjoxNjcyOTMxNDczfQ.VwSkz1lpRQw4eK4eyGyEvtH7CFBouw0K6kaL9jiLpsU",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/auth/verifyEmail?verifyToken=12345678&userId=1234",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"verifyEmail"
+							],
+							"query": [
+								{
+									"key": "verifyToken",
+									"value": "12345678"
+								},
+								{
+									"key": "userId",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get Post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RjYmMyMzUzNDJjNjRkYzhhM2NjMDciLCJmaXJzdE5hbWUiOiJnb3JhbiIsImxhc3ROYW1lIjoidG9sdXNpYyIsImFsaWFzIjoieW91dGgiLCJlbWFpbCI6InRlc3RpbmdAZ21haWwuY29tIiwicm9sZSI6Imd1ZXN0IiwidmVyaWZpZWQiOnRydWUsInZlcmlmeVRva2VuIjoiM2NmOWJmNWVjYTFiZjA5ZWI0ZWVlOWU4OWVkM2RkN2MiLCJjcmVhdGVkQXQiOjE2NzU0MTA0NjcwMTgsInVwZGF0ZWRBdCI6MTY3NTQxMDQ2NzAxOCwiaWF0IjoxNjc1NDEwNTI2LCJleHAiOjE2NzU0MTc3MjZ9.V7ps1NQ6VKT1Aw-ja71947gEe7P3eEeGSLyO9HuNRT0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/63dca98e8fce085198ba4108",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"63dca98e8fce085198ba4108"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RiYmJkOTJjMTMwMGI4MWIxZDNkNmMiLCJmaXJzdE5hbWUiOiJQZXJvIiwibGFzdE5hbWUiOiJQZXJpxIciLCJhbGlhcyI6Ik1haW4gQWRtaW4iLCJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwicm9sZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsInZlcmlmeVRva2VuIjoiYjMxNzI3YWVhYzkyMjc4OTc4YmVkM2FhNDNiNmQ3ZDAiLCJjcmVhdGVkQXQiOjE2NzUzNDQ4NTczMjAsInVwZGF0ZWRBdCI6MTY3NTM0NDg1NzMyMCwiaWF0IjoxNjc1NDA1MDAyLCJleHAiOjE2NzU0MTIyMDJ9.qzjaIY9Ih1oZ5uUyXPjn5vVcGvSscBZs0pwCZLixzE0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"breakingNews\" : true,\r\n    \"category\": \"sport\",\r\n    \"externalNewsId\" :\"63dbbbddb63447f63e8f3e64\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTWFpbiIsImxhc3ROYW1lIjoiQWRtaW4iLCJhY3RpdmUiOnRydWUsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOjE2NzI5Mjg3NDkwNTgsInVwZGF0ZWRBdCI6MTY3MjkyODc0OTA1OCwiaWF0IjoxNjcyOTMxNDczfQ.VwSkz1lpRQw4eK4eyGyEvtH7CFBouw0K6kaL9jiLpsU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"breakingNews\" : true,\r\n    \"category\": \"sport\",\r\n    \"title\" : \"neki title\",\r\n    \"url\": \"neki url do vijesti\",\r\n    \"urlToImage\" : \"image url do vijesti\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/63dca98e8fce085198ba4108",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"63dca98e8fce085198ba4108"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RjYmMyMzUzNDJjNjRkYzhhM2NjMDciLCJmaXJzdE5hbWUiOiJnb3JhbiIsImxhc3ROYW1lIjoidG9sdXNpYyIsImFsaWFzIjoieW91dGgiLCJlbWFpbCI6InRlc3RpbmdAZ21haWwuY29tIiwicm9sZSI6Imd1ZXN0IiwidmVyaWZpZWQiOnRydWUsInZlcmlmeVRva2VuIjoiM2NmOWJmNWVjYTFiZjA5ZWI0ZWVlOWU4OWVkM2RkN2MiLCJjcmVhdGVkQXQiOjE2NzU0MTA0NjcwMTgsInVwZGF0ZWRBdCI6MTY3NTQxMDQ2NzAxOCwiaWF0IjoxNjc1NDEwNTI2LCJleHAiOjE2NzU0MTc3MjZ9.V7ps1NQ6VKT1Aw-ja71947gEe7P3eEeGSLyO9HuNRT0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/63dca98e8fce085198ba4108",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"63dca98e8fce085198ba4108"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter posts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTWFpbiIsImxhc3ROYW1lIjoiQWRtaW4iLCJhY3RpdmUiOnRydWUsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOjE2NzI5Mjg3NDkwNTgsInVwZGF0ZWRBdCI6MTY3MjkyODc0OTA1OCwiaWF0IjoxNjcyOTMxNDczfQ.VwSkz1lpRQw4eK4eyGyEvtH7CFBouw0K6kaL9jiLpsU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\" : [\"local\", \"sport\", \"business\", \"worldwide\"],\r\n    \"breakingNews\" : false,\r\n    \"page\" : 1,\r\n    \"limit\" : 10,\r\n    \"order\" : \"DESC\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/filter",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Create Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RiYmJkOTJjMTMwMGI4MWIxZDNkNmMiLCJmaXJzdE5hbWUiOiJQZXJvIiwibGFzdE5hbWUiOiJQZXJpxIciLCJhbGlhcyI6Ik1haW4gQWRtaW4iLCJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwicm9sZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsInZlcmlmeVRva2VuIjoiYjMxNzI3YWVhYzkyMjc4OTc4YmVkM2FhNDNiNmQ3ZDAiLCJjcmVhdGVkQXQiOjE2NzUzNDQ4NTczMjAsInVwZGF0ZWRBdCI6MTY3NTM0NDg1NzMyMCwiaWF0IjoxNjc1NDM3MjM4LCJleHAiOjE2NzU0NDQ0Mzh9.VwGfjTxolJrFe_xQlHzKqYuThtcKXbZYEHI0L5eUuZY"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\" : \"this is my comment 3\",\r\n    \"_postId\" : \"63dcb08fb29b706669551a59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/comment/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RiYmJkOTJjMTMwMGI4MWIxZDNkNmMiLCJmaXJzdE5hbWUiOiJQZXJvIiwibGFzdE5hbWUiOiJQZXJpxIciLCJhbGlhcyI6Ik1haW4gQWRtaW4iLCJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwicm9sZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsInZlcmlmeVRva2VuIjoiYjMxNzI3YWVhYzkyMjc4OTc4YmVkM2FhNDNiNmQ3ZDAiLCJjcmVhdGVkQXQiOjE2NzUzNDQ4NTczMjAsInVwZGF0ZWRBdCI6MTY3NTM0NDg1NzMyMCwiaWF0IjoxNjc1NDM3MjM4LCJleHAiOjE2NzU0NDQ0Mzh9.VwGfjTxolJrFe_xQlHzKqYuThtcKXbZYEHI0L5eUuZY"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/comment/63dd25a6ac13e9a783039565",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"63dd25a6ac13e9a783039565"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter comments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTWFpbiIsImxhc3ROYW1lIjoiQWRtaW4iLCJhY3RpdmUiOnRydWUsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOjE2NzI5Mjg3NDkwNTgsInVwZGF0ZWRBdCI6MTY3MjkyODc0OTA1OCwiaWF0IjoxNjcyOTMxNDczfQ.VwSkz1lpRQw4eK4eyGyEvtH7CFBouw0K6kaL9jiLpsU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"page\" : 1,\r\n    \"limit\" : 10,\r\n    \"order\" : \"DESC\",\r\n    \"_postId\" : \"63dcb08fb29b706669551a59\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/comment/filter",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
