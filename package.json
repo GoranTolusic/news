@@ -12,7 +12,7 @@
         "seedAdmins": "ts-node ./scripts/seedAdmins.ts",
         "dockerize": " npm run dockerImage && npm run dockerRun ",
         "dockerImage": "docker build -t news .",
-        "dockerRun": "docker run news"
+        "dockerRun": "docker run --network=host news"
     },
     "author": "Goran Tolusic",
     "license": "ISC",
