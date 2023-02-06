@@ -32,3 +32,7 @@ postMiddleware.patch('/:id', middlewareHandler(async (req: Request, res: Respons
 postMiddleware.delete('/:id', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
     if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
 }));
+
+postMiddleware.get('/getExternalNews', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
+    if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
+}));

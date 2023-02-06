@@ -75,6 +75,14 @@ class PostService {
 		return results
 	}
 
+	async getExternalNews(inputs: any) {
+		return await this.externalRepository.find({
+			order: {
+				createdAt: 'DESC'
+			}
+		})
+	}
+
 	checkAndGetId(id: string) {
 		let objectId
 		try {

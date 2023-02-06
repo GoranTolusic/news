@@ -32,6 +32,10 @@ class PostController {
         results = await this.postService.filter(req.body)
         return (req.loggedUser.role == 'guest') ? results.map(item => omit(item, ['viewCount'])) : results
     }
+
+    public async getExternalNews(req: Request, res: Response) {
+        return await this.postService.getExternalNews(req.query)
+    }
 }
 
 export default PostController
