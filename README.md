@@ -19,6 +19,4 @@ Requirments:
 
 3. Open http://localhost:3000/api and start you're ready to go :P
 
-4. In database/seeds/01_users.ts is list of users and their passwords
-
-5. Exported postman collection with request samples is in root of project
+4. Exported postman collection with request samples is in root of project
