@@ -325,6 +325,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get External News",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accesstoken",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZmlyc3ROYW1lIjoiTWFpbiIsImxhc3ROYW1lIjoiQWRtaW4iLCJhY3RpdmUiOnRydWUsImVtYWlsIjoiYWRtaW5AbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOjE2NzI5Mjg3NDkwNTgsInVwZGF0ZWRBdCI6MTY3MjkyODc0OTA1OCwiaWF0IjoxNjcyOTMxNDczfQ.VwSkz1lpRQw4eK4eyGyEvtH7CFBouw0K6kaL9jiLpsU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/post/getExternalNews",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"post",
+								"getExternalNews"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
