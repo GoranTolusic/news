@@ -11,7 +11,7 @@ export const commentMiddleware = Router();
 //prefix = comment/
 
 //global middleware for all comment/ routes
-commentMiddleware.use(authenticateUser)
+commentMiddleware.use(middlewareHandler(authenticateUser))
 
 //Specificic endpoints middlewares
 commentMiddleware.post('/create', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {

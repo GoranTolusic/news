@@ -16,8 +16,8 @@ class CommentService {
 	}
 
 	async create(inputs: CreateComment) {
-		let findExternal = await this.postRepository.findOneBy({ _id: this.checkAndGetId(inputs._postId) })
-		if (!findExternal) throw new NotFound('External news with provided Id was not found')
+		let findPost = await this.postRepository.findOneBy({ _id: this.checkAndGetId(inputs._postId) })
+		if (!findPost) throw new NotFound('Post with provided Id was not found')
 		return await this.commentRepository.save(inputs)
 	}
 
@@ -29,6 +29,8 @@ class CommentService {
 	async filter(inputs: any) {
 		let { page, limit, order, _postId } = inputs
 		limit = limit || 20
+		let findPost = await this.postRepository.findOneBy({ _id: this.checkAndGetId(_postId) })
+		if (!findPost) throw new NotFound('Post with provided Id was not found')
 
 		let results = await this.commentRepository.find({
 			where : {

@@ -12,7 +12,7 @@ export const postMiddleware = Router();
 //prefix = post/
 
 //global middleware for all post/ routes
-postMiddleware.use(authenticateUser)
+postMiddleware.use(middlewareHandler(authenticateUser))
 
 //Specificic endpoints middlewares
 postMiddleware.post('/create', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {

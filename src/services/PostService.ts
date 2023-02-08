@@ -71,15 +71,20 @@ class PostService {
 		for (let oneResult of results) {
 			if (oneResult.breakingNews) oneResult = await this.validateBreakingNews(oneResult)
 		}
-		
+
 		return results
 	}
 
 	async getExternalNews(inputs: any) {
+		let { limit, page } = inputs
+		page = isNaN(page) ? 10 : Number(page)
+
 		return await this.externalRepository.find({
 			order: {
 				createdAt: 'DESC'
-			}
+			},
+			take: isNaN(limit) ? 10 : Number(limit),
+			skip: page ? (page - 1) * limit : 0
 		})
 	}
 
