@@ -11,6 +11,9 @@ export const registry = async (app: Express) => {
             const module = await import('.' + middlewarePath + '/' + fileName)
             if (module && module[fileName + 'Middleware']) {
                 app.use(`/${fileName}`, module[fileName + 'Middleware'])
+            } else {
+                console.error("\x1b[31m", 'ERROR: Check name of your middleware files and export middleware functions. \
+                Every export function within the file needs to have {filename}Middleware as export name ', '\x1b[0m')
             }
         }
     })
@@ -20,8 +23,10 @@ export const registry = async (app: Express) => {
             let fileName = oneRouteFile.replace('.ts', '')
             const module = await import('.' + routesPath + '/' + fileName)
             if (module && module[fileName + 'Routes']) {
-                console.log('module')
                 app.use(`/${fileName}`, module[fileName + 'Routes'])
+            } else {
+                console.error("\x1b[31m", 'ERROR: Check name of your route files and export route functions. \
+                Every export function within the file needs to have {filename}Routes as export name ', '\x1b[0m')
             }
         }
 
