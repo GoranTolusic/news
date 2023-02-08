@@ -4,7 +4,7 @@ export const routeHandler = (handler: Function) => async (req: Request, res: Res
     try {
         let result = await handler(req, res)
         res.status(200).json(result)
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (error: any) {
+        res.status(error.status || 500).json(error)
     }
 };

@@ -14,7 +14,7 @@ export const validatorDto = async <T extends ClassConstructor<any>>(
     const errors = await validate(objInstance);
     // errors is an array of validation errors
     if (errors.length > 0) {
-        throw new BadRequest(errors.map(item => Object.values(item.constraints)).join(' | '))
+        throw new BadRequest(errors.map(item => Object.values(item.constraints)).join(' | '), 400)
     }
     //assign validated and formated values to request params
     Object.assign(obj, { _validated: objInstance })

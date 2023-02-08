@@ -23,5 +23,5 @@ commentMiddleware.post('/filter', middlewareHandler(async (req: Request, res: Re
 }));
 
 commentMiddleware.delete('/:id', middlewareHandler(async (req: Request, res: Response, next: NextFunction) => {
-    if (req.loggedUser.role !== 'admin') throw new Forbidden('You have no permission for this action')
+    if (req.loggedUser.role == 'admin') throw new Forbidden('You have no permission for this action')
 }));

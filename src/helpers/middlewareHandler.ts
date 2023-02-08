@@ -4,7 +4,7 @@ export const middlewareHandler = (handler: Function) => async (req: Request, res
     try {
         await handler(req, res, next)
         next()
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (error:any) {
+        res.status(error.status || 500).json(error)
     }
 };
